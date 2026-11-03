@@ -125,7 +125,13 @@ const contents = [
 
   
 if (!response.ok) {
-  console.error('Gemini API HTTP status:', response.status);
+ 
+const geminiError = await response.json().catch(() => ({}));
+console.error('Gemini error:', {
+  status: response.status,
+  code: geminiError.error?.status,
+  message: geminiError.error?.message
+});
 
   return reply({
     error: `Gemini APIエラー（HTTP ${response.status}）`
