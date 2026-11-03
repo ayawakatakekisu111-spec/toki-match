@@ -124,7 +124,19 @@ const contents = [
   }
 
   
+
 if (!response.ok) {
+  const details = await response.json().catch(() => ({}));
+  const code = details.error?.status || 'UNKNOWN';
+  const message = details.error?.message || '詳細不明';
+
+  console.error('Gemini API error:', response.status, code, message);
+
+  return reply({
+    error: `Gemini HTTP ${response.status}: ${code} — ${message.slice(0, 300)}`
+  }, 502);
+}
+
  
 const geminiError = await response.json().catch(() => ({}));
 console.error('Gemini error:', {
