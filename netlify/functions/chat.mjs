@@ -87,27 +87,15 @@ TOKI MATCHの創作チャット相手です。
 特徴: ${String(character.warning || '').slice(0, 200)}
 `;
 
-  const contents = (Array.isArray(history) ? history : [])
-    .slice(-12)
-    .filter(x =>
-      x &&
-      ['user', 'model'].includes(x.role) &&
-      typeof x.text === 'string'
-    )
-    .map(x => ({
-      role: x.role,
-      parts: [{ text: x.text.slice(0, 600) }]
-    }));
-
-  if (
-    !contents.length ||
-    contents[contents.length - 1].role !== 'user'
-  ) {
-    contents.push({
-      role: 'user',
-      parts: [{ text: message }]
-    });
+  
+const contents = [
+  {
+    role: 'user',
+    parts: [
+      { text: message }
+    ]
   }
+];
 
   let response;
   try {
