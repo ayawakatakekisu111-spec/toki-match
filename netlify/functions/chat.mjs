@@ -135,13 +135,14 @@ TOKI MATCHの創作チャット相手です。
     return reply({ error: 'AIサーバーに接続できませんでした' }, 502);
   }
 
-  if (!response.ok) {
-    return reply({
-      error: response.status === 429
-        ? 'AIの無料枠が混雑中です。しばらく待ってね'
-        : 'AI応答に失敗しました'
-    }, response.status === 429 ? 429 : 502);
-  }
+  
+if (!response.ok) {
+  console.error('Gemini API HTTP status:', response.status);
+
+  return reply({
+    error: `Gemini APIエラー（HTTP ${response.status}）`
+  }, 502);
+}
 
   const data = await response.json();
   const text = data.candidates?.[0]?.content?.parts
