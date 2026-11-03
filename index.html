@@ -96,48 +96,7 @@ const imgs={"原田左之助": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABA
 // Wikipediaの公開サムネイルを取得できた場合だけ表示。失敗時はアイコン。
 async function loadImages(){await Promise.all(people.map(async(p)=>{try{const title=p.name==='千代（見性院）'?'見性院 (山内一豊室)':p.name==='牧村兵部'?'牧村利貞':p.name;const url='https://ja.wikipedia.org/w/api.php?action=query&titles='+encodeURIComponent(title)+'&prop=pageimages&format=json&pithumbsize=600&origin=*';const res=await fetch(url);const json=await res.json();const page=Object.values(json.query.pages)[0];if(page.thumbnail?.source)imgs[p.name]=page.thumbnail.source}catch(e){}}));if(mode==='browse')render()}
 const localPortraits
-const localPortraits = {
-  "小野篁": "/images/ono_no_takamura.jpg",
-  "藤原公任": "/images/fujiwara_kinto.jpg",
-  "毛利元就": "/images/mori_motonari.jpg",
-  "丹羽長秀": "/images/niwa_nagahide.jpg",
-  "岩崎久弥": "/images/iwasaki_hisaya.jpg",
-  "長谷川如是閑": "/images/hasegawa_nyozekan.webp",
-  "牧村兵部": "/images/makimura_hyobu.jpeg",
-  "尾崎翠": "/images/ozaki_midori.jpg",
-  "千代（見性院）": "/images/chiyo_jsiienshoin.jpg",
-  "中野竹子": "/images/nakano_takeko.jpg",
-  "橘三千代": "/images/tachibana_michiyo.jpg",
-  "額田王": "/images/nukata_no_okimi.jpg",
-  "赤染衛門": "/images/akazome_emon.jpg",
-  "柳原白蓮": "/images/yanagiwara_byakuren.jpg",
-  "九条武子": "/images/kujo_takeko.jpg",
-  "徳川家康": "/images/tokugawa_ieyasu.png",
-  "李白": "/images/li_bai.jpg",
-  "蘇軾": "/images/su_shi.jpg",
-  "乾隆帝": "/images/qianlong.jpg",
-  "洪秀全": "/images/hong_xiuquan.webp",
-  "始皇帝": "/images/qin_shi_huang.jpg",
-  "王陽明": "/images/wang_yangming.jpg",
-  "世宗": "/images/sejong.jpg",
-  "チンギス・ハン": "/images/genghis_khan.jpg",
-  "ユリウス・カエサル": "/images/caesar.jpg",
-  "ヘンリー8世": "/images/henry_viii.jpg",
-  "ルイ14世": "/images/louis_xiv.webp",
-  "ナポレオン": "/images/napoleon.jpg",
-  "バイロン": "/images/byron.jpg",
-  "ルートヴィヒ2世": "/images/ludwig_ii.jpg",
-  "ジャコモ・カサノヴァ": "/images/giacomo_casanova.jpg",
-  "フリードリヒ2世": "/images/frederick_ii.jpg",
-  "オスカー・ワイルド": "/images/oscar_wilde.webp",
-  "ルドルフ皇太子": "/images/crown_prince_rudolf.jpeg",
-  "毛利隆元": "/images/mori_takamoto.webp",
-  "大内義隆": "/images/ouchi_yoshitaka.jpg",
-  "フランシス・ウォルシンガム": "/images/walsingham.jpg",
-  "ニコラ・テスラ": "/images/nikola_tesla.jpg",
-  "石橋湛山": "/images/ishibashi_tanzan.webp",
-  "日蓮": "/images/nichiren.jpg"
-};
+const localPortraits = { "小野篁": "/images/ono_no_takamura.jpg","藤原公任": "/images/fujiwara_kinto.jpg","毛利元就": "/images/mori_motonari.jpg","丹羽長秀": "/images/niwa_nagahide.jpg","岩崎久弥": "/images/iwasaki_hisaya.jpg","長谷川如是閑": "/images/hasegawa_nyozekan.webp","牧村兵部": "/images/makimura_hyobu.jpeg","尾崎翠": "/images/ozaki_midori.jpg","千代（見性院）": "/images/chiyo_jsiienshoin.jpg","中野竹子": "/images/nakano_takeko.jpg","橘三千代": "/images/tachibana_michiyo.jpg","額田王": "/images/nukata_no_okimi.jpg","赤染衛門": "/images/akazome_emon.jpg","柳原白蓮": "/images/yanagiwara_byakuren.jpg","九条武子": "/images/kujo_takeko.jpg","徳川家康": "/images/tokugawa_ieyasu.png","李白": "/images/li_bai.jpg","蘇軾": "/images/su_shi.jpg","乾隆帝": "/images/qianlong.jpg","洪秀全": "/images/hong_xiuquan.webp","始皇帝": "/images/qin_shi_huang.jpg","王陽明": "/images/wang_yangming.jpg","世宗": "/images/sejong.jpg","チンギス・ハン": "/images/genghis_khan.jpg","ユリウス・カエサル": "/images/caesar.jpg","ヘンリー8世": "/images/henry_viii.jpg","ルイ14世": "/images/louis_xiv.webp","ナポレオン": "/images/napoleon.jpg","バイロン": "/images/byron.jpg","ルートヴィヒ2世": "/images/ludwig_ii.jpg","ジャコモ・カサノヴァ": "/images/giacomo_casanova.jpg","フリードリヒ2世": "/images/frederick_ii.jpg","オスカー・ワイルド": "/images/oscar_wilde.webp","ルドルフ皇太子": "/images/crown_prince_rudolf.jpeg","毛利隆元": "/images/mori_takamoto.webp","大内義隆": "/images/ouchi_yoshitaka.jpg","フランシス・ウォルシンガム": "/images/walsingham.jpg","ニコラ・テスラ": "/images/nikola_tesla.jpg","石橋湛山": "/images/ishibashi_tanzan.webp","日蓮": "/images/nichiren.jpg"};
 
 function portrait(p,i){const c=colors[i%colors.length];return `<div class="portrait" style="--a:${c[0]};--b:${c[1]}">${`<img src="${localPortraits[p.name]}" alt="${p.name}の肖像または関連画像" loading="lazy" onerror="this.onerror=null;${imgs[p.name]?`this.src='${imgs[p.name]}'`:`this.style.display='none';this.nextElementSibling.style.display='grid'`}"><span class="avatar" style="display:none">${p.emoji}</span>`}<span class="era">${p.code} · ${p.era}</span></div>`}
 function render(){if(mode==='signup'){renderSignup();return}if(mode==='quiz'){renderQuiz();return}let list=people.filter(p=>(regionFilter==='all'||p.region===regionFilter)&&(countryFilter==='all'||p.country===countryFilter)&&(filter==='all'||(filter==='likes'?liked.has(p.name):p.gender===filter)));if(profile&&filter!=='likes')list.sort((a,b)=>compat(b)-compat(a));app.innerHTML=`<div class="memberbar"><span>♥ ${escapeHtml(profile?.name||'ゲスト')}さんのおすすめ会員</span><button onclick="editProfile()">⚙ 好みを変更</button></div><section class="hero"><div style="color:#dc3670;font-weight:800;font-size:12px">歴史人物専門マッチングアプリ</div><h1>時代を超えて、恋しよう。♥</h1><p>平安貴族から幕末の志士まで。気になる相手をタップして、秘密のプロフィールを覗いてみよう。</p><p>登録者${people.length}人 ｜ あなたの好みに合わせておすすめ順に表示 ｜ 既読は数百年待ち</p><p style="font-size:12px">※生年月日は不詳・推定・旧暦の区別を表示。史実と創作セリフは別です。</p><button class="action" style="width:auto" onclick="startQuiz()">10問で運命の相手を診断 →</button></section><div class="tools"><button class="tab ${filter==='all'?'active':''}" onclick="setFilter('all')">全員 ${people.length}</button><button class="tab ${filter==='m'?'active':''}" onclick="setFilter('m')">男性 ${people.filter(p=>p.gender==='m').length}</button><button class="tab ${filter==='f'?'active':''}" onclick="setFilter('f')">女性 ${people.filter(p=>p.gender==='f').length}</button><button class="tab ${filter==='likes'?'active':''}" onclick="setFilter('likes')">♥ いいね ${liked.size}</button></div><div class="tools" style="margin-top:0"><select aria-label="地域で探す" onchange="regionFilter=this.value;countryFilter='all';render()"><option value="all" ${regionFilter==='all'?'selected':''}>🌏 すべての地域</option>${['日本','アジア','ヨーロッパ'].map(r=>`<option ${regionFilter===r?'selected':''} value="${r}">${r}</option>`).join('')}</select><select aria-label="国で探す" onchange="countryFilter=this.value;render()"><option value="all">すべての国</option>${[...new Set(people.filter(p=>regionFilter==='all'||p.region===regionFilter).map(p=>p.country))].map(c=>`<option value="${c}" ${countryFilter===c?'selected':''}>${isoCodes[c]||"—"} · ${c}</option>`).join('')}</select></div><div class="grid">${list.map(p=>{const i=people.indexOf(p);return `<article class="person" onclick="detail(${i})">${portrait(p,i)}<div class="body"><h3>${p.name}</h3><span class="matchbadge">♥ 相性 ${compat(p)}%</span><p>${escapeHtml(p.intro)}</p><p class="dob">🎂 ${escapeHtml(p.birthday)}</p><p class="achieve">🏆 ${escapeHtml(p.achievement)}</p><div class="bottom"><span class="more">プロフィールを見る ›</span><button aria-label="いいね" class="like ${liked.has(p.name)?'on':''}" onclick="event.stopPropagation();toggleLike(${i})">♥</button></div></div></article>`}).join('')}</div>${list.length?'':'<div class="empty">まだいいねした人はいません。気になる人に♥を押してみて！</div>'}`}
