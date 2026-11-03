@@ -1,0 +1,1 @@
+今回の画像20枚を追加・更新しました。画像はimages/に格納。index.htmlとNetlify Functionsも同梱しています。GitHubへはZIPの中身をアップロードしてください。
